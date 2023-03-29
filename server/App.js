@@ -1,51 +1,69 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv");
-const bodyparser = require("body-parser");
 const port = process.env.port || 9000;
-const db = require("./config/db");
+const cors = require("cors");
 dotenv.config({
   path: "./.env",
 });
+const db = require("./config/db");
 
-app.use(bodyparser.urlencoded({ extended: true }));
-app.use(bodyparser.json());
-const cors = require("cors");
+app.use(express.json());
 app.use(cors());
+
 db.connect((err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("connect");
-  }
+  if (err) console.log(err.message);
+  else console.log("connect");
 });
 
-app.get("/busdata", (req, res) => {
+app.post("/busdata", (req, res) => {
   const { startPlace, endPlace } = req.body;
 
   db.query(
-    "select * from pointbus where stateTime>=timediff(current_time(),'00:10:00') and startPlace=? and endPlace=? limit 4",
+    "select * from pointbus where startTime<=timediff(current_time(),'00:10:00') and startPlace=? and endPlace=? limit 4",
     [startPlace, endPlace],
     (err, rows) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        console.log(rows);
-        if (rows.length <= 0) {
+      if (err) res.status(400).send(err);
+      else {
+        if (rows.length > 0) {
+          return res.status(200).send(rows);
+        }
+        if (rows.length == 0) {
           db.query(
-            "select p.*,i.*,time_format(timediff(p.arrivalTime ,i.arrivalTime),'%i')*2 as price from interbus p , interbus i where p.arrivalPlace = ? and i.arrivalPlace = ? and p.busNo = i.busNo and p.arrivalTime >= timediff(current_date(),'00:10:00')",
+            "select p.*,i.id as id1,i.busNo as busNo1, i.arrivalPlace as arrivalPlace1,i.arrivalTime as arrivalTime1,time_format(timediff(p.arrivalTime ,i.arrivalTime),'%i')*2 as price from interbus p , interbus i where p.arrivalPlace = ? and i.arrivalPlace = ? and p.busNo = i.busNo and p.arrivalTime <= timediff(current_date(),'00:10:00')",
             [startPlace, endPlace],
             (err, rows) => {
-              if (err) {
-                res.status(400).send(err);
+              if (err) res.status(400).send(err);
+              else if (rows.length <= 0) {
+                let datas = [];
+                db.query(
+                  "select p.* from pointbus p,pointbus p2 where p.startPlace = ? and  p.endPlace=(select startPlace from pointbus where endPlace=?) and p2.startPlace = (select startPlace from pointbus where endPlace=?)",
+                  [startPlace, endPlace, endPlace],
+                  (err, rows) => {
+                    if (err) return res.status(400).send(rows);
+                    else {
+                      datas.push(rows[0]);
+                      db.query(
+                        "select p2.* from pointbus p,pointbus p2 where p.startPlace = ? and  p.endPlace=(select startPlace from pointbus where endPlace=?) and p2.startPlace = (select startPlace from pointbus where endPlace=?)",
+                        [startPlace, endPlace, endPlace],
+                        (err, rows) => {
+                          if (err) return res.status(400).send(rows);
+                          else {
+                            datas.push(rows[0]);
+                            return res.status(200).send(datas);
+                          }
+                        }
+                      );
+                    }
+                  }
+                );
               } else {
-                res.status(200).send(rows);
+                console.log(rows);
+                return res.status(200).send(rows);
               }
             }
           );
-          return 0;
         }
-        res.status(200).send(rows);
       }
     }
   );
