@@ -69,6 +69,22 @@ app.post("/busdata", (req, res) => {
   );
 });
 
+app.post("/busdetails", (req, res) => {
+  const { busNo } = req.body;
+  db.query(
+    "select * from  interbus where busNo = ? order by arrivalTime",
+    [busNo],
+    (err, result) => {
+      if (err) res.status(404).send(err);
+      else {
+        const data = [];
+        data.push(result);
+        res.status(200).send([data]);
+      }
+    }
+  );
+});
+
 app.listen(port, () => {
   console.log(`Server Runs on Port ${port}`);
 });
