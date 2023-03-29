@@ -71,15 +71,22 @@ app.post("/busdata", (req, res) => {
 
 app.post("/busdetails", (req, res) => {
   const { busNo } = req.body;
+  const details = {};
   db.query(
     "select * from  interbus where busNo = ? order by arrivalTime",
     [busNo],
     (err, result) => {
       if (err) res.status(404).send(err);
       else {
+        details.busNo = busNo;
+        details.type = "normal";
+        details.stops = [];
+        result.forEach((data) => {
+          details.stops.push(data.arrivalPlace);
+        });
         const data = [];
         data.push(result);
-        res.status(200).send([data]);
+        res.status(200).send(details);
       }
     }
   );
