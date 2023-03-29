@@ -8,12 +8,17 @@ import { useTranslation } from "react-i18next"
 import "../assets/i18n/i18n"
 import axios from "axios"
 
-type Props = {}
+type BusInfoProps = {
+    busNo: string
+    type: string
+    stops: string[]
+    price: number
+}
 
-const BusDetails = (props: Props) => {
+const BusDetails = () => {
     const [busNumber, setBusNumber] = useState(null)
     const [openBus, setOpenBus] = useState(false)
-    const [busInfo, setBusInfo] = useState({})
+    const [busInfo, setBusInfo] = useState<BusInfoProps | null>(null)
 
     const fetchBusDetails = async () => {
         try {
@@ -145,72 +150,87 @@ const BusDetails = (props: Props) => {
                 </View>
 
                 {/*    Bus Detials  */}
-                <View className="flex flex-col items-center justify-between px-1 bg-white mx-8 p-3 rounded-lg mt-6 shadow-lg shadow-black ">
-                    <View className="flex flex-row gap-x-4 items-center mb-6 ">
-                        <Fontisto name="bus" size={38} color={COLORS.violet} />
-                        {/*    Bus No  */}
-                        <Text
-                            className={`text-3xl text-orange-500 `}
-                            style={{ fontFamily: "InterBold" }}
-                        >
-                            {busInfo.busNo}
-                        </Text>
-                    </View>
-
-                    {/*    Price  */}
-                    <View className="bg-green-500 p-3 py-2 rounded-lg flex flex-row items-center">
-                        <Entypo name="ticket" size={34} color="white" />
-                        <Text
-                            style={{
-                                fontFamily: "InterSemiBold",
-                            }}
-                            className=" pl-8 text-2xl  text-white font-semibold"
-                        >{`₹ ${details.price}`}</Text>
-                    </View>
-                </View>
-
-                {/* Stops */}
-
-                <Text
-                    style={{ fontFamily: "RalewayBold" }}
-                    className="text-black text-lg text-center mt-4 "
-                >
-                    {t("Stops")}
-                </Text>
-
-                <View className="p-6 py-2 h-max mt-3 rounded-lg bg-white shadow-lg shadow-black/50 mx-6">
-                    <FlatList
-                        className="h-max"
-                        style={{
-                            paddingBottom: 750,
-                        }}
-                        data={busInfo.stops}
-                        renderItem={({ item, index }) => (
-                            <View className=" flex flex-row items-center py-2 z-10">
-                                {/* Dot */}
-                                <View className="w-4 h-4 rounded-full bg-orange-500  relative shadow-lg shadow-black/40">
-                                    {/* Line */}
-                                    {index != busInfo.stops.length - 1 && (
-                                        <View
-                                            style={{
-                                                top: 15,
-                                                left: "22%",
-                                                zIndex: -1,
-                                            }}
-                                            className="h-10 w-2 bg-orange-300  absolute    "
-                                        />
-                                    )}
-                                </View>
+                {busInfo ? (
+                    <>
+                        <View className="flex flex-col items-center justify-between px-1 bg-white mx-8 p-3 rounded-lg mt-6 shadow-lg shadow-black ">
+                            <View className="flex flex-row gap-x-4 items-center mb-6 ">
+                                <Fontisto
+                                    name="bus"
+                                    size={38}
+                                    color={COLORS.violet}
+                                />
+                                {/*    Bus No  */}
                                 <Text
-                                    style={{ fontFamily: "RalewayRegular" }}
-                                    className="pl-3 text-base capitalize whitespace-pre-wrap "
+                                    className={`text-3xl text-orange-500 `}
+                                    style={{ fontFamily: "InterBold" }}
                                 >
-                                    {t(item)}
+                                    {busInfo.busNo}
                                 </Text>
                             </View>
-                        )}
-                    />
-                </View>
+
+                            {/*    Price  */}
+                            <View className="bg-green-500 p-3 py-2 rounded-lg flex flex-row items-center">
+                                <Entypo name="ticket" size={34} color="white" />
+                                <Text
+                                    style={{
+                                        fontFamily: "InterSemiBold",
+                                    }}
+                                    className=" pl-8 text-2xl  text-white font-semibold"
+                                >{`₹ ${details.price}`}</Text>
+                            </View>
+                        </View>
+
+                        {/* Stops */}
+
+                        <Text
+                            style={{ fontFamily: "RalewayBold" }}
+                            className="text-black text-lg text-center mt-4 "
+                        >
+                            {t("Stops")}
+                        </Text>
+
+                        <View className="p-6 py-2 h-max mt-3 rounded-lg bg-white shadow-lg shadow-black/50 mx-6">
+                            <FlatList
+                                className="h-max"
+                                style={{
+                                    paddingBottom: 750,
+                                }}
+                                data={busInfo.stops}
+                                renderItem={({ item, index }) => (
+                                    <View className=" flex flex-row items-center py-2 z-10">
+                                        {/* Dot */}
+                                        <View className="w-4 h-4 rounded-full bg-orange-500  relative shadow-lg shadow-black/40">
+                                            {/* Line */}
+                                            {index !=
+                                                busInfo.stops.length - 1 && (
+                                                <View
+                                                    style={{
+                                                        top: 15,
+                                                        left: "22%",
+                                                        zIndex: -1,
+                                                    }}
+                                                    className="h-10 w-2 bg-orange-300  absolute    "
+                                                />
+                                            )}
+                                        </View>
+                                        <Text
+                                            style={{
+                                                fontFamily: "RalewayRegular",
+                                            }}
+                                            className="pl-3 text-base capitalize whitespace-pre-wrap "
+                                        >
+                                            {t(item)}
+                                        </Text>
+                                    </View>
+                                )}
+                            />
+                        </View>
+                    </>
+                ) : (
+                    <Text className="p-4 shadow-lg shadow-black/50 rounded-lg ">
+                        No Data Found
+                    </Text>
+                )}
 
                 {/* Search BTN 
                 <TouchableOpacity
