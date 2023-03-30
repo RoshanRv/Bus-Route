@@ -44,7 +44,7 @@ app.post("/busdata", (req, res) => {
               else if (rows.length <= 0) {
                 let datas = [];
                 db.query(
-                  "select p1.busNo, p1.endPlace as arrivalPlace1, p1.startPlace as arrivalPlace, p1.price , p1.startTime as arrivalTime, p1.endTime as arrivalTime1 from pointbus p1,pointbus p2 where p1.startPlace=? and p2.endPlace=(select endPlace from pointbus where endPlace=? limit 1) and p2.endPlace=? and p1.endPlace=p2.startPlace and p1.busNo=(select busNo from breakbus where p1.busNo=busNo and isBreakDown=0) and p2.busNo=(select busNo from breakbus where busNo=p2.busNo and isBreakDown=0)",
+                  "select p1.busNo, p1.endPlace as arrivalPlace1, p1.startPlace as arrivalPlace, p1.price , p1.startTime as arrivalTime, p1.endTime as arrivalTime1,p1.freeBus as isfreeBus from pointbus p1,pointbus p2 where p1.startPlace=? and p2.endPlace=(select endPlace from pointbus where endPlace=? limit 1) and p2.endPlace=? and p1.endPlace=p2.startPlace and p1.busNo=(select busNo from breakbus where p1.busNo=busNo and isBreakDown=0) and p2.busNo=(select busNo from breakbus where busNo=p2.busNo and isBreakDown=0)",
                   [startPlace, endPlace, endPlace],
                   (err, rows) => {
                     if (err) {
@@ -54,7 +54,7 @@ app.post("/busdata", (req, res) => {
                       datas.push([rows[0]]);
                       datas.push([rows[1]]);
                       db.query(
-                        "select p2.busNo, p2.endPlace as arrivalPlace1, p2.startPlace as arrivalPlace, p2.price , p2.startTime as arrivalTime, p2.endTime as arrivalTime1 from pointbus p1,pointbus p2 where p1.startPlace=? and p2.endPlace=(select endPlace from pointbus where endPlace=? limit 1) and p2.endPlace=? and p1.endPlace=p2.startPlace and p1.busNo=(select busNo from breakbus where p1.busNo=busNo and isBreakDown=0) and p2.busNo=(select busNo from breakbus where busNo=p2.busNo and isBreakDown=0)",
+                        "select p2.busNo, p2.endPlace as arrivalPlace1, p2.startPlace as arrivalPlace, p2.price , p2.startTime as arrivalTime, p2.endTime as arrivalTime1,p2.freeBus as isfreeBus  from pointbus p1,pointbus p2 where p1.startPlace=? and p2.endPlace=(select endPlace from pointbus where endPlace=? limit 1) and p2.endPlace=? and p1.endPlace=p2.startPlace and p1.busNo=(select busNo from breakbus where p1.busNo=busNo and isBreakDown=0) and p2.busNo=(select busNo from breakbus where busNo=p2.busNo and isBreakDown=0)",
                         [startPlace, endPlace, endPlace],
                         (err, rows) => {
                           if (err) {
@@ -87,13 +87,13 @@ app.post("/busdetails", (req, res) => {
   const { busNo } = req.body;
   const details = {};
   db.query(
-    "select * from  interbus where busNo = ? order by arrivalTime",
+    "select * from  interbus i inner join pointbus p  on i.busNo = p.busNo  where i.busNo = ? order by arrivalTime",
     [busNo],
     (err, result) => {
       if (err) res.status(404).send(err);
       else {
         details.busNo = busNo;
-        details.type = "normal";
+        details.type = result[0].type;
         details.stops = [];
         result.forEach((data) => {
           details.stops.push(data.arrivalPlace);
@@ -105,6 +105,17 @@ app.post("/busdetails", (req, res) => {
     }
   );
 });
+
+app.get("/breakdown", (req, res) => {
+  db.query("select * from breakbus where isBreakdown = 1;", (err, result) => {
+    if (err) console.log(err);
+    else {
+      res.status(200).send(result);
+    }
+  });
+});
+
+
 
 app.listen(port, () => {
   console.log(`Server Runs on Port ${port}`);
