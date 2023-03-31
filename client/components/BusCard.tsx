@@ -12,6 +12,7 @@ import { AntDesign } from "@expo/vector-icons"
 import { useTranslation } from "react-i18next"
 import "../assets/i18n/i18n"
 import { BusRoutes } from "../screens/Route"
+import { FontAwesome5 } from "@expo/vector-icons"
 
 type Props = {
     item: BusRoutes | null
@@ -32,6 +33,8 @@ const BusCard = ({ item, index, len }: Props) => {
         )
             return "merge"
     }
+
+    console.log(item)
 
     return (
         <>
@@ -82,8 +85,18 @@ const BusCard = ({ item, index, len }: Props) => {
                                     fontFamily: "InterSemiBold",
                                 }}
                                 className=" pl-2 text-base text-white font-semibold"
-                            >{`₹ ${item?.price}`}</Text>
+                            >{`₹ ${Math.abs(item?.price)}`}</Text>
                         </View>
+                        {/* Lady */}
+                        {item.isfreeBus === 1 && (
+                            <View className="">
+                                <FontAwesome5
+                                    name="female"
+                                    size={24}
+                                    color="#ec4899"
+                                />
+                            </View>
+                        )}
                     </View>
                     {/*     Lower */}
                     {/*    Stops  */}

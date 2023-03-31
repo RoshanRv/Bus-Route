@@ -8,6 +8,8 @@ type Props = {
 }
 
 const BusGroup = ({ items }: Props) => {
+    console.log({ items })
+
     return (
         <View className="border-2 border-gray-100 shadow-lg p-3 py-1 rounded-xl m-3 mx-5 bg-gray-50 shadow-black/50">
             {items && items[0] ? (
