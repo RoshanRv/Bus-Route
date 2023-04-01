@@ -4,6 +4,8 @@ import en from "./en.json"
 import ta from "./ta.json"
 
 i18n.use(initReactI18next).init({
+    lowerCaseLng: true,
+
     compatibilityJSON: "v3",
     lng: "en",
     fallbackLng: "en",
