@@ -35,7 +35,7 @@ const BusType = ({}: Props) => {
     ]
 
     return (
-        <View className="bg-white shadow-lg p-2 py-0 pt-2 rounded-xl shadow-black flex flex-row items-center justify-around mx-6 mt-4">
+        <View className=" p-2 py-0 pt-2 rounded-xl shadow-black flex flex-row items-center justify-around -6 ">
             <Ionicons name="bus" size={SIZE.md} color={COLORS.red} />
             <View className="flex flex-col  w-[70%]">
                 <Text

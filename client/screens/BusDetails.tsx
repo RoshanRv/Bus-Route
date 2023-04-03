@@ -7,6 +7,8 @@ import DropDownPicker from "react-native-dropdown-picker"
 import { useTranslation } from "react-i18next"
 import "../assets/i18n/i18n"
 import axios from "axios"
+import { buses } from "../utils/datas"
+import sendPushNotification from "../utils/sendNotification"
 
 type BusInfoProps = {
     busNo: string
@@ -23,7 +25,7 @@ const BusDetails = () => {
     const fetchBusDetails = async () => {
         try {
             const details = await axios.post(
-                "http://192.168.60.147:9000/busdetails",
+                "http://192.168.241.147:9000/busdetails",
                 { busNo: busNumber }
             )
             console.log(details.data)
@@ -94,7 +96,10 @@ const BusDetails = () => {
                         {t("Bus Details")}
                     </Text>
                     {/*   Notification Btn   */}
-                    <TouchableOpacity className="     ">
+                    <TouchableOpacity
+                        onPress={sendPushNotification}
+                        className="     "
+                    >
                         <Ionicons
                             className="w-max ml-auto text-center "
                             color={"white"}
@@ -145,7 +150,7 @@ const BusDetails = () => {
                         setOpen={setOpenBus}
                         value={busNumber}
                         setValue={setBusNumber}
-                        items={busNoSelect}
+                        items={buses}
                     />
                 </View>
 
@@ -227,7 +232,10 @@ const BusDetails = () => {
                         </View>
                     </>
                 ) : (
-                    <Text className="p-4 shadow-lg shadow-black/50 rounded-lg ">
+                    <Text
+                        style={{ fontFamily: "RalewayRegular" }}
+                        className="p-4 shadow-lg shadow-black/50 rounded-lg bg-white mx-6 mt-10"
+                    >
                         No Data Found
                     </Text>
                 )}

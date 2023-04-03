@@ -29,13 +29,15 @@ const LocationBox = ({}: Props) => {
     const { t, i18n } = useTranslation()
 
     const items = [
+        { label: t("Sattur"), value: "sattur" },
+        { label: t("Thirumangalam"), value: "thirumangalam" },
+
         { label: t("Periyar Bus Stand"), value: "periyar-bustand" },
         {
             label: t("Kamaraj College Of Engineering"),
             value: "kamaraj college of engineering",
         },
         { label: t("Thirunagar"), value: "thirunagar" },
-        { label: t("Thirumangalam"), value: "thirumangalam" },
         { label: t("Kappalur"), value: "kappalur" },
         { label: t("Palanganatham"), value: "palanganatham" },
         { label: t("Villapuram"), value: "villapuram" },
@@ -45,8 +47,21 @@ const LocationBox = ({}: Props) => {
         { label: t("Kallikudi"), value: "kallikudi" },
         { label: t("Sivarakottai"), value: "sivarakottai" },
         { label: t("Madurai"), value: "madurai" },
-        { label: t("Sattur"), value: "sattur" },
         { label: t("Nagarkovil"), value: "nagarkovil" },
+        { label: t("etturvattam toll"), value: "etturvattam toll" },
+        { label: t("naduvapatti"), value: "naduvapatti" },
+        { label: t("pattampudur"), value: "pattampudur" },
+        { label: t("solakar"), value: "solakar" },
+        {
+            label: t("virudhunagar medical college"),
+            value: "virudhunagar medical college",
+        },
+
+        { label: t("maravankulam"), value: "maravankulam" },
+        { label: t("tadagam"), value: "tadagam" },
+        { label: t("vellakulam"), value: "vellakulam" },
+        { label: t("thoppore"), value: "thoppore" },
+        { label: t("PRC bus depot"), value: "PRC பஸ் டிப்போ" },
     ]
 
     return (
@@ -123,6 +138,7 @@ const LocationBox = ({}: Props) => {
                         color: "gray",
                         fontWeight: "500",
                         fontFamily: "RalewayRegular",
+                        textTransform: "capitalize",
                     }}
                     style={{
                         borderColor: "white",
@@ -139,6 +155,12 @@ const LocationBox = ({}: Props) => {
                         borderColor: "white",
                         borderRadius: 0,
                         borderBottomColor: "gray",
+                    }}
+                    labelStyle={{
+                        textTransform: "capitalize",
+                    }}
+                    listItemLabelStyle={{
+                        textTransform: "capitalize",
                     }}
                     open={openCurrentLoc}
                     setOpen={setOpenCurrentLoc}

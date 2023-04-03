@@ -27,6 +27,7 @@ import Buses from "../components/Buses"
 import { useTranslation } from "react-i18next"
 import "../assets/i18n/i18n"
 import axios from "axios"
+import sendPushNotification from "../utils/sendNotification"
 
 type Props = {
     navigation: any
@@ -40,6 +41,7 @@ export interface BusRoutes {
     arrivalTime1: string
     busNo: string
     price: number
+    isfreeBus?: number
 }
 
 const Routes = ({ navigation, route }: Props) => {
@@ -63,12 +65,13 @@ const Routes = ({ navigation, route }: Props) => {
     const getRoutes = async () => {
         try {
             const routes = await axios.post(
-                `http://192.168.60.147:9000/busdata`,
+                `http://192.168.241.147:9000/busdata`,
                 {
                     startPlace: currLoc,
                     endPlace: dropLoc,
                 }
             )
+            console.log(routes)
 
             setBusRoutes(routes.data)
             console.log(routes.data)
@@ -107,6 +110,7 @@ const Routes = ({ navigation, route }: Props) => {
                     {/*   Notification Btn   */}
                     <TouchableOpacity className="     ">
                         <Ionicons
+                            onPress={sendPushNotification}
                             className="w-max ml-auto text-center "
                             color={"white"}
                             name={"notifications"}

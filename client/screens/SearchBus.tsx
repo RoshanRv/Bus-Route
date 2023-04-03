@@ -26,6 +26,7 @@ import { useTranslation } from "react-i18next"
 import "../assets/i18n/i18n"
 import useLanguage from "../store/useLanguage"
 import useSearchDetails from "../store/useSearchDetails"
+import sendPushNotification from "../utils/sendNotification"
 
 type Props = {
     navigation: any
@@ -58,7 +59,10 @@ const SearchBus = ({ navigation }: Props) => {
                         {t("Enter Destination")}
                     </Text>
                     {/*   Notification Btn   */}
-                    <TouchableOpacity className="     ">
+                    <TouchableOpacity
+                        onPress={sendPushNotification}
+                        className="     "
+                    >
                         <Ionicons
                             className="w-max ml-auto text-center "
                             color={"white"}
@@ -78,11 +82,15 @@ const SearchBus = ({ navigation }: Props) => {
                 {/*  Current & Drop   */}
                 <LocationBox />
 
-                <View className="flex flex-col-reverse">
+                <View className="flex flex-col-reverse bg-white shadow-lg p-2 py-0 pt-2 rounded-xl shadow-black  items-center justify-around mx-6 mt-4">
                     {/*  Time  */}
                     <Time />
+                    {/* <View className="border-b-2 border-gray-300  z-50 mx-10 w-60 -mb-2" /> */}
+
                     {/*   Filter   */}
                     <Filters />
+                    {/* <View className="border-b-2 border-gray-300  z-50 mx-10 w-60 -mb-2" /> */}
+
                     {/*    Bus Type  */}
                     <BusType />
                 </View>

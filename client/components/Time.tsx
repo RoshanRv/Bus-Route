@@ -39,7 +39,7 @@ const Time = (props: Props) => {
     ]
 
     return (
-        <View className=" bg-white shadow-lg p-2 py-0 pt-2 rounded-xl shadow-black flex flex-row items-center justify-around mx-6 mt-4">
+        <View className="  p-2 py-0  rounded-xl shadow-black flex flex-row items-center justify-around  mt-2">
             <AntDesign name="clockcircleo" size={24} color="black" />
             <View className="flex flex-col  w-[70%]">
                 <Text
