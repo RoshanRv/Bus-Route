@@ -1,6 +1,8 @@
 # Bus Route
 
-The Bus Route app helps users find the local bus they need to take to reach their destination, and suggests multiple buses if they need to switch between them. The app provides additional details such as the estimated arrival time of the bus, the fare, and the bus stop locations to help users plan their journey more effectively.
+The Bus Route app helps users find the local bus they need to take to reach their destination, and suggests multiple buses if they need to switch between them.
+
+The app provides additional details such as the estimated arrival time of the bus, the fare, and the bus stop locations to help users plan their journey more effectively.
 
 ![bus-route-cover](https://github.com/RoshanRv/Bus-Route/blob/main/cover.png?raw=true)
 
@@ -16,7 +18,7 @@ The Bus Route app suggest local bus with additional details such as
 
 The Bus Route app also provides a list of buses that are out of service due to breakdowns or maintenance.
 
-The app supports internationalization which means the language can be switched b/w Tamil & English.
+The app supports internationalization which means the language can be switched b/w தமிழ் & English.
 
 ---
 
