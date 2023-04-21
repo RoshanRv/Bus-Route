@@ -1,31 +1,29 @@
-import datetime
 import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.ensemble import RandomForestClassifier
 import pickle
-from sklearn.ensemble import RandomForestRegressor
 
 
-# Import the necessary libraries
+def train_model():
+    df = pd.read_csv('crowd_levels.csv')
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        df.iloc[:, :-1], df.iloc[:, -1], test_size=0.2, random_state=42)
+
+    encoder = OneHotEncoder(drop='first').fit(
+        X_train[['BusNo', 'RushHour', 'FestiveDay', 'Weather']])
+    X_train_encoded = encoder.transform(
+        X_train[['BusNo', 'RushHour', 'FestiveDay', 'Weather']])
+    X_test_encoded = encoder.transform(
+        X_test[['BusNo', 'RushHour', 'FestiveDay', 'Weather']])
+
+    clf = RandomForestClassifier(n_estimators=100, random_state=42)
+    clf.fit(X_train_encoded, y_train)
+
+    with open('model.pkl', 'wb') as f:
+        pickle.dump((encoder, clf), f)
 
 
-# Load the dataset
-data = pd.read_csv('crowd_levels.csv')
-
-# Define the features and target variable
-features = ['rush_hour_from', 'rush_hour_to', 'festival_time']
-target = 'crowd_level'
-
-# Convert rush hour from and to times to datetime format
-data['rush_hour_from'] = pd.to_datetime(data['rush_hour_from'])
-data['rush_hour_to'] = pd.to_datetime(data['rush_hour_to'])
-
-# Convert festival time to datetime format
-data['festival_time'] = pd.to_datetime(data['festival_time'])
-
-# Create a Random Forest regression model
-model = RandomForestRegressor(n_estimators=100, max_depth=10, random_state=42)
-
-# Train the model on the entire dataset
-model.fit(data[features], data[target])
-
-with open('model.pkl', 'wb') as file:
-    pickle.dump(model, file)
+if __name__ == '__main__':
+    train_model()
