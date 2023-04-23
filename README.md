@@ -4,7 +4,7 @@ The Bus Route app helps users find the local bus they need to take to reach thei
 
 The app provides additional details such as the estimated arrival time of the bus, the fare, and the bus stop locations to help users plan their journey more effectively.
 
-![bus-route-cover](https://github.com/RoshanRv/Bus-Route/blob/main/cover.png?raw=true)
+![bus-route-cover](https://user-images.githubusercontent.com/75238302/233823461-3a161810-aeae-4b52-8a8a-8e7b4494a352.png)
 
 ## Features
 
