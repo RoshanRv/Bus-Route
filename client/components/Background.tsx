@@ -2,6 +2,8 @@ import { View, Text, ImageBackground } from "react-native"
 import { SafeAreaProvider } from "react-native-safe-area-context"
 
 import React, { ReactNode } from "react"
+import { StatusBar } from "expo-status-bar"
+import { COLORS } from "../utils/styles"
 
 type Props = {
     children: ReactNode
@@ -10,6 +12,11 @@ type Props = {
 const Background = ({ children }: Props) => {
     return (
         <SafeAreaProvider className="flex flex-1">
+            <StatusBar
+                backgroundColor={"#40f2a6"}
+                style="inverted"
+                translucent={true}
+            />
             <ImageBackground
                 source={require("../assets/bg.png")}
                 resizeMode="cover"

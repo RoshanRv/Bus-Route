@@ -1,5 +1,5 @@
-import { View, Text } from "react-native"
-import React from "react"
+import { View, Text, TouchableOpacity } from "react-native"
+import React, { useEffect, useState } from "react"
 import { Fontisto } from "@expo/vector-icons"
 import {
     Ionicons,
@@ -7,12 +7,13 @@ import {
     Entypo,
     MaterialIcons,
 } from "@expo/vector-icons"
-import { COLORS, SIZE } from "../utils/styles"
+import { COLORS, MODEL_ENDPOINT, SIZE } from "../utils/styles"
 import { AntDesign } from "@expo/vector-icons"
 import { useTranslation } from "react-i18next"
 import "../assets/i18n/i18n"
 import { BusRoutes } from "../screens/Route"
 import { FontAwesome5 } from "@expo/vector-icons"
+import axios from "axios"
 
 type Props = {
     item: BusRoutes | null
@@ -22,6 +23,7 @@ type Props = {
 
 const BusCard = ({ item, index, len }: Props) => {
     const { t, i18n } = useTranslation()
+    const [crowdLvl, setCrowdLvl] = useState<null | number>(null)
 
     const selectLogo = (len: number, i: number, spot: "start" | "end") => {
         if (i == 0 && spot === "start" && len - 0 > i) return "start"
@@ -34,7 +36,39 @@ const BusCard = ({ item, index, len }: Props) => {
             return "merge"
     }
 
-    console.log(item)
+    const predictCrowd = async () => {
+        try {
+            axios
+                .post(`${MODEL_ENDPOINT}/predict`, {
+                    BusNo: item?.busNo,
+                    FestiveDay: "No",
+                    Weather: "Sunny",
+                })
+                .then((resp) => {
+                    console.log(resp.data)
+
+                    setCrowdLvl(resp.data.prediction)
+                })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const predictMsg = (lvl: number | null) => {
+        if (lvl === 0 || lvl === 1) {
+            return "Low Crowd"
+        } else if (lvl === 2) {
+            return "Moderate Crowd"
+        } else if (lvl && lvl >= 3) {
+            return "High Crowd"
+        } else {
+            return ""
+        }
+    }
+
+    useEffect(() => {
+        predictCrowd()
+    }, [])
 
     return (
         <>
@@ -159,11 +193,28 @@ const BusCard = ({ item, index, len }: Props) => {
                                 {t(item?.arrivalPlace1)}
                             </Text>
                         </View>
+                        {/*      Crowd Level    */}
+                        <TouchableOpacity className="flex flex-row w-max items-center mx-auto text-center">
+                            <MaterialIcons
+                                name="groups"
+                                size={24}
+                                color="black"
+                            />
+                            <Text
+                                className="pl-3 "
+                                style={{
+                                    fontFamily: "RalewayRegular",
+                                }}
+                            >
+                                {predictMsg(crowdLvl) || ""}
+                            </Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             ) : (
                 <Text>No Buses</Text>
             )}
+            {/*   Dotted Lines   */}
             {index != len - 1 && item && (
                 <View className="-mt-1">
                     <View className="h-1 border-l-2 border-gray-400 w-2 mx-auto mb-1" />

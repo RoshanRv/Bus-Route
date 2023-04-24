@@ -6,7 +6,7 @@ interface Props {
 }
 
 const useLanguage = create<Props>((set) => ({
-    lang: "ta",
+    lang: "en",
     switchLang: () =>
         set((state) => ({ lang: state.lang === "en" ? "ta" : "en" })),
 }))

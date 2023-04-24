@@ -2,13 +2,14 @@ import { View, Text, TouchableOpacity, FlatList } from "react-native"
 import React, { useEffect, useState } from "react"
 import Background from "../components/Background"
 import { Entypo, Fontisto, Ionicons } from "@expo/vector-icons"
-import { COLORS, SIZE } from "../utils/styles"
+import { COLORS, SERVER_ENDPOINT, SIZE } from "../utils/styles"
 import DropDownPicker from "react-native-dropdown-picker"
 import { useTranslation } from "react-i18next"
 import "../assets/i18n/i18n"
 import axios from "axios"
 import { buses } from "../utils/datas"
 import sendPushNotification from "../utils/sendNotification"
+import Spinner from "../components/Spinner"
 
 type BusInfoProps = {
     busNo: string
@@ -21,17 +22,20 @@ const BusDetails = () => {
     const [busNumber, setBusNumber] = useState(null)
     const [openBus, setOpenBus] = useState(false)
     const [busInfo, setBusInfo] = useState<BusInfoProps | null>(null)
+    const [isLoading, setIsLoading] = useState(false)
 
     const fetchBusDetails = async () => {
         try {
-            const details = await axios.post(
-                "http://192.168.241.147:9000/busdetails",
-                { busNo: busNumber }
-            )
+            setIsLoading(true)
+            const details = await axios.post(`${SERVER_ENDPOINT}/busdetails`, {
+                busNo: busNumber,
+            })
             console.log(details.data)
             setBusInfo(details.data)
         } catch (e) {
             console.log(e)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -46,42 +50,6 @@ const BusDetails = () => {
     }, [busNumber])
 
     const { t, i18n } = useTranslation()
-
-    const details = {
-        busNo: "30B",
-        type: t("normal"),
-        stops: [
-            t("virudhunagar"),
-            t("kamaraj college of engineering"),
-            t("kallikudi"),
-            t("sivarakottai"),
-            t("thirumangalam"),
-            t("kappalur"),
-            t("mandela nagar"),
-            t("pandi kovil"),
-            t("matuthavani"),
-        ],
-        price: 36,
-    }
-
-    const busNoSelect = [
-        {
-            label: "30B",
-            value: "30B",
-        },
-        {
-            label: "36A",
-            value: "36A",
-        },
-        {
-            label: "30A",
-            value: "30A",
-        },
-        {
-            label: "30A",
-            value: "30A",
-        },
-    ]
 
     return (
         <View className="flex flex-col flex-1 ">
@@ -157,31 +125,20 @@ const BusDetails = () => {
                 {/*    Bus Detials  */}
                 {busInfo ? (
                     <>
-                        <View className="flex flex-col items-center justify-between px-1 bg-white mx-8 p-3 rounded-lg mt-6 shadow-lg shadow-black ">
-                            <View className="flex flex-row gap-x-4 items-center mb-6 ">
+                        <View className="flex flex-col items-center justify-between px-1 bg-white mx-8 p-6 rounded-lg mt-6 shadow-lg shadow-black ">
+                            <View className="flex flex-row gap-x-4 items-center  ">
                                 <Fontisto
                                     name="bus"
-                                    size={38}
+                                    size={42}
                                     color={COLORS.violet}
                                 />
                                 {/*    Bus No  */}
                                 <Text
-                                    className={`text-3xl text-orange-500 `}
+                                    className={`text-4xl text-orange-500 `}
                                     style={{ fontFamily: "InterBold" }}
                                 >
                                     {busInfo.busNo}
                                 </Text>
-                            </View>
-
-                            {/*    Price  */}
-                            <View className="bg-green-500 p-3 py-2 rounded-lg flex flex-row items-center">
-                                <Entypo name="ticket" size={34} color="white" />
-                                <Text
-                                    style={{
-                                        fontFamily: "InterSemiBold",
-                                    }}
-                                    className=" pl-8 text-2xl  text-white font-semibold"
-                                >{`₹ ${details.price}`}</Text>
                             </View>
                         </View>
 
@@ -231,13 +188,15 @@ const BusDetails = () => {
                             />
                         </View>
                     </>
-                ) : (
+                ) : !isLoading ? (
                     <Text
                         style={{ fontFamily: "RalewayRegular" }}
                         className="p-4 shadow-lg shadow-black/50 rounded-lg bg-white mx-6 mt-10"
                     >
                         No Data Found
                     </Text>
+                ) : (
+                    <Spinner />
                 )}
 
                 {/* Search BTN 

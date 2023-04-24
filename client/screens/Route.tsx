@@ -16,7 +16,7 @@ import {
 import { AntDesign, Ionicons } from "@expo/vector-icons"
 import Background from "../components/Background"
 import LocationBox from "../components/LocationBox"
-import { COLORS, SIZE } from "../utils/styles"
+import { COLORS, SERVER_ENDPOINT, SIZE } from "../utils/styles"
 import Filters from "../components/Filters"
 import BusType from "../components/BusType"
 import { BoldTitle } from "../components/Title"
@@ -28,6 +28,7 @@ import { useTranslation } from "react-i18next"
 import "../assets/i18n/i18n"
 import axios from "axios"
 import sendPushNotification from "../utils/sendNotification"
+import Spinner from "../components/Spinner"
 
 type Props = {
     navigation: any
@@ -47,6 +48,8 @@ export interface BusRoutes {
 const Routes = ({ navigation, route }: Props) => {
     const { t, i18n } = useTranslation()
 
+    const [isLoading, setIsLoading] = useState(false)
+
     const { busType, filter, setBusType, setFilter, currLoc, dropLoc } =
         useSearchDetails(
             ({ busType, filter, setBusType, setFilter, dropLoc, currLoc }) => ({
@@ -64,25 +67,22 @@ const Routes = ({ navigation, route }: Props) => {
 
     const getRoutes = async () => {
         try {
-            const routes = await axios.post(
-                `http://192.168.241.147:9000/busdata`,
-                {
-                    startPlace: currLoc,
-                    endPlace: dropLoc,
-                }
-            )
-            console.log(routes)
+            setIsLoading(true)
+            const routes = await axios.post(`${SERVER_ENDPOINT}/busdata`, {
+                startPlace: currLoc,
+                endPlace: dropLoc,
+            })
 
             setBusRoutes(routes.data)
             console.log(routes.data)
         } catch (e) {
             console.log(e)
+        } finally {
+            setIsLoading(false)
         }
     }
 
     useEffect(() => {
-        console.log("heeh")
-
         getRoutes()
     }, [])
 
@@ -168,12 +168,16 @@ const Routes = ({ navigation, route }: Props) => {
                                 className="capitalize text-gray-500"
                                 style={{ fontFamily: "RalewayRegular" }}
                             >
-                                {t(busType || "")}
+                                {t(busType || "All")}
                             </Text>
                         </View>
                     </View>
                     {/* Buses */}
-                    <Buses busRoutes={busRoutes} />
+                    {!isLoading ? (
+                        <Buses busRoutes={busRoutes} />
+                    ) : (
+                        <Spinner color={COLORS.green} />
+                    )}
                 </View>
             </Background>
         </View>
