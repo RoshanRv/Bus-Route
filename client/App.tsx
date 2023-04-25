@@ -29,6 +29,8 @@ import * as Notifications from "expo-notifications"
 import BusStop from "./screens/BusStop"
 import Breakdown from "./screens/Breakdown"
 
+import * as Location from "expo-location"
+
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
         shouldShowAlert: true,
@@ -128,6 +130,18 @@ export default function App() {
                 responseListener.current
             )
         }
+    }, [])
+
+    useEffect(() => {
+        ;(async () => {
+            let { status, canAskAgain } =
+                await Location.requestForegroundPermissionsAsync()
+            canAskAgain = true
+            if (status !== "granted") {
+            }
+            let location = await Location.getCurrentPositionAsync({})
+            console.log(location.coords.latitude)
+        })()
     }, [])
 
     const [loaded] = useFonts({
