@@ -9,11 +9,11 @@ type Props = {
 
 const Buses = ({ busRoutes }: Props) => {
     return (
-        <View style={{ flex: 1 }} className="mt-6">
+        <View style={{ flex: 1 }} className="mt-3">
             <FlatList
                 showsVerticalScrollIndicator={false}
                 style={{
-                    marginBottom: 550,
+                    marginBottom: 470,
                 }}
                 // className="mb-96"
                 data={busRoutes}

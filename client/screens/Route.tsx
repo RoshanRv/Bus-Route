@@ -123,7 +123,10 @@ const Routes = ({ navigation, route }: Props) => {
                 <LocationBox />
 
                 {/*    Search BTN  */}
-                <TouchableOpacity className="bg-red-500 p-2 px-[.7rem] rounded-full  mx-auto shadow-2xl mt-4 shadow-black -z-20">
+                <TouchableOpacity
+                    style={{}}
+                    className="bg-red-500 p-2 px-3 rounded-full  mx-auto shadow-2xl  shadow-black z-20 -mb-1 mt-4 border-2 border-white "
+                >
                     <Ionicons
                         className=""
                         name="ios-search"
@@ -136,7 +139,7 @@ const Routes = ({ navigation, route }: Props) => {
                     style={{
                         borderRadius: 50,
                     }}
-                    className=" mt-12 bg-white w-full h-full shadow-lg shadow-black scale-105 p-4 "
+                    className=" mt-2 bg-white w-full h-full shadow-lg shadow-black scale-105 p-4 "
                 >
                     {/* Filters */}
                     <View className="flex flex-row justify-around text-gray-400">
@@ -152,7 +155,7 @@ const Routes = ({ navigation, route }: Props) => {
                                 className="capitalize text-gray-500 "
                                 style={{ fontFamily: "RalewayRegular" }}
                             >
-                                {t(filter!)}
+                                {t(filter! || "time")}
                             </Text>
                         </View>
                         {/* Bus Type */}

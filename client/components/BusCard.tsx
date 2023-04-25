@@ -41,8 +41,8 @@ const BusCard = ({ item, index, len }: Props) => {
             axios
                 .post(`${MODEL_ENDPOINT}/predict`, {
                     BusNo: item?.busNo,
-                    FestiveDay: "No",
-                    Weather: "Sunny",
+                    FestiveDay: "Yes",
+                    Weather: "Rainy",
                 })
                 .then((resp) => {
                     console.log(resp.data)
@@ -198,7 +198,13 @@ const BusCard = ({ item, index, len }: Props) => {
                             <MaterialIcons
                                 name="groups"
                                 size={24}
-                                color="black"
+                                color={
+                                    crowdLvl === 0 || crowdLvl === 1
+                                        ? COLORS.green
+                                        : crowdLvl == 2
+                                        ? COLORS.yellow
+                                        : COLORS.red
+                                }
                             />
                             <Text
                                 className="pl-3 "
@@ -206,7 +212,7 @@ const BusCard = ({ item, index, len }: Props) => {
                                     fontFamily: "RalewayRegular",
                                 }}
                             >
-                                {predictMsg(crowdLvl) || ""}
+                                {t(predictMsg(crowdLvl) || "")}
                             </Text>
                         </TouchableOpacity>
                     </View>

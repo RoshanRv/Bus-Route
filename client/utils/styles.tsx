@@ -4,6 +4,7 @@ export const COLORS = {
     red: "#ef4444",
     violet: "#8b5cf6",
     green: "#10b981",
+    yellow: "#facc15",
 }
 
 export const SIZE = {

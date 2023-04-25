@@ -21,13 +21,19 @@
         "From": "ஏரும் இடமஂ",
         "To": "இலக்கு",
         "Time": "நேரம்",
+        "time": "நேரம்",
         "Bus Type": "பேருந்து வகை",
         "Filter": "பிலஂதரஂ",
         "All": "அனைத்து",
+        "all": "அனைத்து",
         "Normal": "சாதாரண",
+        "normal": "சாதாரண",
         "Express": "வேகமான",
+        "express": "வேகமான",
         "Deluxe": "டீலக்ஸ்",
+        "deluxe": "டீலக்ஸ்",
         "Price": "விலை",
+        "price": "விலை",
         "Bus Details": "பேருந்து விவரங்கள்",
         "matuthavani": "மாட்டுத்தாவணி",
         "Matuthavani": "மாட்டுத்தாவணி",
@@ -68,6 +74,10 @@
         "tadagam": "தடாகம்",
         "PRC bus depot": "PRC பஸ் டிப்போ",
         "vellakulam": "PRC பஸ் டிப்போ",
-        "thoppore": "தோப்போர்"
+        "thoppore": "தோப்போர்",
+        "Low Crowd": "குறைந்த கூட்டம",
+        "Moderate Crowd": "மிதமான கூட்டம்",
+        "High Crowd": "அதிக கூட்டம்",
+        "Bus Routes": "பேருந்து வழித்தடங்கள்"
     }
 }
