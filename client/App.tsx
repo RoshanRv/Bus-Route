@@ -30,6 +30,26 @@ import BusStop from "./screens/BusStop"
 import Breakdown from "./screens/Breakdown"
 
 import * as Location from "expo-location"
+import useLocation from "./store/useLocation"
+import axios from "axios"
+import { shallow } from "zustand/shallow"
+
+export interface WeatherProps {
+    current: {
+        cloud: number
+        condition: {
+            icon: string
+            text: string
+        }
+        humidity: number
+        is_day: 0 | 1
+        temp_c: number
+    }
+    location: {
+        name: string
+        region: string
+    }
+}
 
 Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -132,15 +152,43 @@ export default function App() {
         }
     }, [])
 
+    const { updateCoords, updateWeather } = useLocation(
+        (state) => ({
+            updateCoords: state.updateCoords,
+            updateWeather: state.updateWeather,
+        }),
+        shallow
+    )
+
     useEffect(() => {
         ;(async () => {
-            let { status, canAskAgain } =
-                await Location.requestForegroundPermissionsAsync()
-            canAskAgain = true
+            let { status } = await Location.requestForegroundPermissionsAsync()
             if (status !== "granted") {
             }
-            let location = await Location.getCurrentPositionAsync({})
-            console.log(location.coords.latitude)
+            let {
+                coords: { latitude, longitude },
+            } = await Location.getCurrentPositionAsync({})
+            updateCoords({
+                latitude,
+                longitude,
+            })
+
+            const { data } = await axios.get<WeatherProps>(
+                "https://weatherapi-com.p.rapidapi.com/current.json",
+                {
+                    params: { q: `${latitude},${longitude}` },
+                    headers: {
+                        "X-RapidAPI-Key":
+                            "6b7d2d8110mshbf6b400bc432cf7p13576ejsn10d6dacaf0c2",
+                    },
+                }
+            )
+            updateWeather({
+                city: data.location.name,
+                icon: data.current.condition.icon,
+                temp: data.current.temp_c,
+                weather: data.current.condition.text,
+            })
         })()
     }, [])
 

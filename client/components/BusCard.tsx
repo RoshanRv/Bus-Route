@@ -14,6 +14,7 @@ import "../assets/i18n/i18n"
 import { BusRoutes } from "../screens/Route"
 import { FontAwesome5 } from "@expo/vector-icons"
 import axios from "axios"
+import useLocation from "../store/useLocation"
 
 type Props = {
     item: BusRoutes | null
@@ -36,17 +37,18 @@ const BusCard = ({ item, index, len }: Props) => {
             return "merge"
     }
 
+    const weather = useLocation((state) => state.weather)
+
     const predictCrowd = async () => {
         try {
             axios
                 .post(`${MODEL_ENDPOINT}/predict`, {
                     BusNo: item?.busNo,
                     FestiveDay: "Yes",
-                    Weather: "Rainy",
+                    Weather: weather?.includes("rain") ? "Rainy" : "Sunny",
                 })
                 .then((resp) => {
                     console.log(resp.data)
-
                     setCrowdLvl(resp.data.prediction)
                 })
         } catch (e) {

@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react"
 import {
-    SafeAreaView,
+    Image,
     View,
     FlatList,
-    StyleSheet,
     Text,
-    StatusBar,
     TouchableOpacity,
     Switch,
 } from "react-native"
-import DateTimePicker from "@react-native-community/datetimepicker"
 import Background from "../components/Background"
 import { Ionicons, Entypo, Fontisto } from "@expo/vector-icons"
 import { COLORS, SIZE } from "../utils/styles"
@@ -21,6 +18,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import DropDownPicker from "react-native-dropdown-picker"
 import { buses } from "../utils/datas"
 import sendPushNotification from "../utils/sendNotification"
+import useLocation from "../store/useLocation"
 
 type Props = {}
 
@@ -37,6 +35,15 @@ const Profile = ({}: Props) => {
 
     const [openRegular, setOpenReguler] = useState(false)
     const [regularBuses, setRegularBuses] = useState<any>([])
+    const { city, icon, temp, weather } = useLocation(
+        ({ city, icon, temp, weather }) => ({
+            city,
+            icon,
+            temp,
+            weather,
+        }),
+        shallow
+    )
 
     const handleChange = async () => {
         console.log(regularBuses)
@@ -91,8 +98,44 @@ const Profile = ({}: Props) => {
                         />
                     </TouchableOpacity>
                 </View>
-                {/*   Settings   */}
-                <View className="bg-white p-3 shadow-lg shadow-black/50 rounded-lg mx-8 mt-10 text-center">
+                {/*           Weather        */}
+                <View className="bg-white p-3 shadow-lg shadow-black w-[85%] mt-4  mx-auto  rounded-lg">
+                    <Text
+                        className="text-center"
+                        style={{
+                            fontFamily: "RalewayRegular",
+                        }}
+                    >
+                        {city}
+                    </Text>
+                    <View className="flex flex-row justify-around items-center w-full">
+                        <Image
+                            className=" w-20 h-20 "
+                            source={{
+                                uri: `https:${icon}`,
+                            }}
+                        />
+                        <View>
+                            <Text
+                                className="text-3xl"
+                                style={{
+                                    fontFamily: "RalewayBold",
+                                    color: COLORS.blue,
+                                }}
+                            >{`${temp} C`}</Text>
+                            <Text
+                                style={{
+                                    fontFamily: "RalewayRegular",
+                                }}
+                                className="text-center"
+                            >
+                                {weather}
+                            </Text>
+                        </View>
+                    </View>
+                </View>
+                {/*   Settings  - LANGUAGE */}
+                <View className="bg-white p-3 shadow-lg shadow-black/50 rounded-lg mx-8 mt-6 text-center">
                     <View className="w-max mx-auto mb-2">
                         <Entypo
                             className=""
