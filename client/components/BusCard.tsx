@@ -15,6 +15,8 @@ import { BusRoutes } from "../screens/Route"
 import { FontAwesome5 } from "@expo/vector-icons"
 import axios from "axios"
 import useLocation from "../store/useLocation"
+import { shallow } from "zustand/shallow"
+import isHoliday from "../utils/isHoliday"
 
 type Props = {
     item: BusRoutes | null
@@ -37,14 +39,17 @@ const BusCard = ({ item, index, len }: Props) => {
             return "merge"
     }
 
-    const weather = useLocation((state) => state.weather)
+    const { holidays, weather } = useLocation(
+        (state) => ({ weather: state.weather, holidays: state.holidays }),
+        shallow
+    )
 
     const predictCrowd = async () => {
         try {
             axios
                 .post(`${MODEL_ENDPOINT}/predict`, {
                     BusNo: item?.busNo,
-                    FestiveDay: "Yes",
+                    FestiveDay: isHoliday(holidays),
                     Weather: weather?.includes("rain") ? "Rainy" : "Sunny",
                 })
                 .then((resp) => {

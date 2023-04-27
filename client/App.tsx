@@ -30,7 +30,7 @@ import BusStop from "./screens/BusStop"
 import Breakdown from "./screens/Breakdown"
 
 import * as Location from "expo-location"
-import useLocation from "./store/useLocation"
+import useLocation, { HolidayProps } from "./store/useLocation"
 import axios from "axios"
 import { shallow } from "zustand/shallow"
 
@@ -152,10 +152,11 @@ export default function App() {
         }
     }, [])
 
-    const { updateCoords, updateWeather } = useLocation(
+    const { updateCoords, updateWeather, updateHolidays } = useLocation(
         (state) => ({
             updateCoords: state.updateCoords,
             updateWeather: state.updateWeather,
+            updateHolidays: state.updateHolidays,
         }),
         shallow
     )
@@ -173,7 +174,7 @@ export default function App() {
                 longitude,
             })
 
-            const { data } = await axios.get<WeatherProps>(
+            const { data: weather } = await axios.get<WeatherProps>(
                 "https://weatherapi-com.p.rapidapi.com/current.json",
                 {
                     params: { q: `${latitude},${longitude}` },
@@ -184,11 +185,16 @@ export default function App() {
                 }
             )
             updateWeather({
-                city: data.location.name,
-                icon: data.current.condition.icon,
-                temp: data.current.temp_c,
-                weather: data.current.condition.text,
+                city: weather.location.name,
+                icon: weather.current.condition.icon,
+                temp: weather.current.temp_c,
+                weather: weather.current.condition.text,
             })
+
+            const { data: holidays } = await axios.get<HolidayProps>(
+                "https://www.googleapis.com/calendar/v3/calendars/en.indian%23holiday%40group.v.calendar.google.com/events?key=AIzaSyCg7kGi7TcjlfmIyq_UKxoejX2Lb-M380U"
+            )
+            updateHolidays(holidays.items)
         })()
     }, [])
 

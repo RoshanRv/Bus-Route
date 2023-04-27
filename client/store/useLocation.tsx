@@ -5,12 +5,22 @@ type Coords = {
     longitude: number | null
 }
 
+export interface HolidayProps {
+    items: {
+        summary: string
+        start: {
+            date: string
+        }
+    }[]
+}
+
 interface Props {
     coords: Coords
     temp: number | null
     weather: string | null
     icon: string | null
     city: string | null
+    holidays: HolidayProps["items"] | []
     updateCoords: (coords: Coords) => void
     updateWeather: ({
         temp,
@@ -23,6 +33,7 @@ interface Props {
         icon: string
         city: string
     }) => void
+    updateHolidays: (holidays: HolidayProps["items"]) => void
 }
 
 const useLocation = create<Props>((set) => ({
@@ -34,6 +45,7 @@ const useLocation = create<Props>((set) => ({
     icon: null,
     temp: null,
     weather: null,
+    holidays: [],
 
     updateCoords: (coords) => set({ coords }),
     updateWeather: ({ temp, weather, icon, city }) =>
@@ -43,6 +55,7 @@ const useLocation = create<Props>((set) => ({
             icon,
             city,
         }),
+    updateHolidays: (holidays) => set({ holidays }),
 }))
 
 export default useLocation
