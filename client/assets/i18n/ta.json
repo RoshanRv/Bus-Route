@@ -65,119 +65,104 @@
         "nagarkovil": "நாகர்கோவில்",
         "Nagarkovil": "நாகர்கோவில்",
         "Keelanesaneri": "",
-        "etturvattam toll": "எட்டூர்வட்டம் சுங்கச்சாவடி",
-        "naduvapatti": "நடுவப்பட்டி",
-        "pattampudur": "பட்டம்புதூர்",
-        "solakar": "சோலகர்",
-        "virudhunagar medical college": "விருதுநகர் மருத்துவக் கல்லூரி",
-        "maravankulam": "மறவன்குளம்",
-        "tadagam": "தடாகம்",
-        "PRC bus depot": "PRC பஸ் டிப்போ",
-        "vellakulam": "PRC பஸ் டிப்போ",
-        "thoppore": "தோப்போர்",
+
         "Low Crowd": "குறைந்த கூட்டம",
         "Moderate Crowd": "மிதமான கூட்டம்",
         "High Crowd": "அதிக கூட்டம்",
-        "Bus Routes": "பேருந்து வழித்தடங்கள்"
+        "Bus Routes": "பேருந்து வழித்தடங்கள்",
         "Brokedown Buses": "புரிகரிக்கப்படாத பஸ்ஸுகள்",
 
-"Regular Buses": "வழிமுறை பஸ்ஸுகள்",
+        "Regular Buses": "வழிமுறை பஸ்ஸுகள்",
 
-"No Data Found": "தரப்பு தகவல் கிடையாது",
+        "No Data Found": "தரப்பு தகவல் கிடையாது",
 
-"Items have been selected": "உருவங்கள் தேர்ந்தெடுக்கப்பட்டுள்ளன",
+        "Items have been selected": "உருவங்கள் தேர்ந்தெடுக்கப்பட்டுள்ளன",
         "Sunny": "சூரிய ஒளி",
 
-  "Moderate rain": "மிதமான மழை",
+        "Moderate rain": "மிதமான மழை",
 
-  "Heavy rain": "கனமான மழை",
+        "Heavy rain": "கனமான மழை",
 
-  "Light rain": "சிறிய மழை",
+        "Light rain": "சிறிய மழை",
 
-  "Misty": "குளோரமான",
+        "Misty": "குளோரமான",
 
-  "Overcast": "மேலே மேலே மேல்",
+        "Overcast": "மேலே மேலே மேல்",
 
+        "Thirunelveli": "திருநெல்வேலி",
 
-
-
-  "Thirunelveli": "திருநெல்வேலி",
-
-  "thirunelveli": "திருநெல்வேலி",
+        "thirunelveli": "திருநெல்வேலி",
         "etturvattam toll": "எட்டுர்வாட்டம் டோல்",
 
-  "Etturvattam Toll": "எட்டுர்வாட்டம் டோல்",
+        "Etturvattam Toll": "எட்டுர்வாட்டம் டோல்",
 
-  "naduvapatti": "நடுவாபட்டி",
+        "naduvapatti": "நடுவாபட்டி",
 
-  "Naduvapatti": "நடுவாபட்டி",
+        "Naduvapatti": "நடுவாபட்டி",
 
-  "pattampudur": "பட்டம்புதூர்",
+        "pattampudur": "பட்டம்புதூர்",
 
-  "Pattampudur": "பட்டம்புதூர்",
+        "Pattampudur": "பட்டம்புதூர்",
 
-  "solakar": "சொலக்கார்",
+        "solakar": "சொலக்கார்",
 
-  "Solakar": "சொலக்கார்",
+        "Solakar": "சொலக்கார்",
 
-  "virudhunagar medical college": "விருதுநகர் மெடிக்கல் கல்லூரி",
+        "virudhunagar medical college": "விருதுநகர் மெடிக்கல் கல்லூரி",
 
-  "Virudhunagar medical college": "விருதுநகர் மெடிக்கல் கல்லூரி",
+        "Virudhunagar medical college": "விருதுநகர் மெடிக்கல் கல்லூரி",
 
-  "maravankulam": "மரவன்குளம்",
+        "maravankulam": "மரவன்குளம்",
 
-  "Maravankulam": "மரவன்குளம்",
+        "Maravankulam": "மரவன்குளம்",
 
-  "kappalur": "கப்பலூர்",
+        "tadagam": "தடகம்",
 
-  "Kappalur": "கப்பலூர்",
+        "Tadagam": "தடகம்",
 
-  "tadagam": "தடகம்",
+        "PRC bus depot": "பி.ஆர்.சி பஸ் டெபோ",
 
-  "Tadagam": "தடகம்",
+        "prc bus depot": "பி.ஆர்.சி பஸ் டெபோ",
 
-  "kallikudi": "கல்லிக்குடி",
+        "vellakulam": "வெள்ளகுளம்",
 
-  "Kallikudi": "கல்லிக்குடி",
+        "Vellakulam": "வெள்ளகுளம்",
 
-  "PRC bus depot": "பி.ஆர்.சி பஸ் டெபோ",
+        "thoppore": "தொப்போர்",
 
-  "prc bus depot": "பி.ஆர்.சி பஸ் டெபோ",
+        "Thoppore": "தொப்போர்",
 
-  "vellakulam": "வெள்ளகுளம்",
+        "soorakkulam": "சூரக்குளம்",
 
-  "Vellakulam": "வெள்ளகுளம்",
+        "Soorakkulam": "சூரக்குளம்",
 
-  "thoppore": "தொப்போர்",
+        "melakkottai": "மேலக்கோட்டை",
 
-  "Thoppore": "தொப்போர்",
+        "genjampatti": "கெஞ்சம்பட்டி",
 
-  "soorakkulam": "சூரக்குளம்",
+        "vellur": "வெள்ளூர்",
 
-  "Soorakkulam": "சூரக்குளம்",
+        "kunnathur": "குண்ணத்தூர்",
 
-  "sivarakottai": "சிவரகோட்டை",
+        "thottiapatti": "தொட்டியாபட்டி",
 
-    "melakkottai": "மேலக்கோட்டை",
+        "alampatti": "ஆழம்பட்டி",
 
-    "genjampatti": "கெஞ்சம்பட்டி",
+        "karisalpatti": "கரிசல்பட்டி",
 
-    "vellur": "வெள்ளூர்",
+        "pajneri": "பஜ்னேரி",
 
-    "kunnathur": "குண்ணத்தூர்",
+        "avaniyapuram": "ஆவணியாபுரம்",
 
-    "thottiapatti": "தொட்டியாபட்டி",
+        "villapuram": "வில்லாபுரம்",
 
-    "alampatti": "ஆழம்பட்டி",
-
-    "karisalpatti": "கரிசல்பட்டி",
-
-    "pajneri": "பஜ்னேரி",
-
-    "avaniyapuram": "ஆவணியாபுரம்",
-
-    "villapuram": "வில்லாபுரம்",
-
-    "amirtham cinema": "அமிர்தம் சினிமா",
+        "amirtham cinema": "அமிர்தம் சினிமா",
+        "Nearby Bus Stop": "அருகிலுள்ள பேருந்து நிறுத்தம்",
+        "Add New Stop": "புதிய நிறுத்தத்தைச் சேர்க்கவும்",
+        "Latitude": "அட்சரேகை",
+        "Longitude": "தீர்க்கரேகை",
+        "Stop Name": "நிறுத்து பெயர்",
+        "City Name": "நகரத்தின் பெயர்",
+        "Add Stop": "நிறுத்தத்தைச் சேர்க்கவும்"
     }
 }
