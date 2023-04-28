@@ -193,7 +193,7 @@ const BusDetails = () => {
                         style={{ fontFamily: "RalewayRegular" }}
                         className="p-4 shadow-lg shadow-black/50 rounded-lg bg-white mx-6 mt-10"
                     >
-                        No Data Found
+                        {t("No Data Found")}
                     </Text>
                 ) : (
                     <Spinner />

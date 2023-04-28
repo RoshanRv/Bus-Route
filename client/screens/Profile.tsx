@@ -106,7 +106,7 @@ const Profile = ({}: Props) => {
                             fontFamily: "RalewayRegular",
                         }}
                     >
-                        {city}
+                        {t(city || "")}
                     </Text>
                     <View className="flex flex-row justify-around items-center w-full">
                         <Image
@@ -129,7 +129,7 @@ const Profile = ({}: Props) => {
                                 }}
                                 className="text-center"
                             >
-                                {weather}
+                                {t(weather || "")}
                             </Text>
                         </View>
                     </View>

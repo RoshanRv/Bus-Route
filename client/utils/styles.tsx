@@ -13,5 +13,5 @@ export const SIZE = {
     lg: 28,
 }
 
-export const SERVER_ENDPOINT = `http://192.168.0.5:9000`
-export const MODEL_ENDPOINT = `http://192.168.0.5:5000`
+export const SERVER_ENDPOINT = `http://192.168.144.147:9000`
+export const MODEL_ENDPOINT = `http://192.168.144.147:5000`

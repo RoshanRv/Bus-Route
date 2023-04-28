@@ -124,7 +124,7 @@ const Routes = ({ navigation, route }: Props) => {
 
                 {/*    Search BTN  */}
                 <TouchableOpacity
-                    style={{}}
+                    onPress={getRoutes}
                     className="bg-red-500 p-2 px-3 rounded-full  mx-auto shadow-2xl  shadow-black z-20 -mb-1 mt-4 border-2 border-white "
                 >
                     <Ionicons
