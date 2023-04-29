@@ -70,11 +70,12 @@ const StopCard = ({ stop, coords }: Props) => {
             <View>
                 {/* Stop Name */}
                 <Text
+                    className="text-left ml-auto"
                     style={{
                         fontFamily: "RalewayRegular",
                     }}
                 >
-                    {stop}
+                    {t(stop)}
                 </Text>
                 {/*   Time & Dis   */}
                 <View className="flex flex-row mt-4">

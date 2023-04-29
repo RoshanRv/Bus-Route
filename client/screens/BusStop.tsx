@@ -33,8 +33,17 @@ export interface StopProps {
     }[]
 }
 
+interface CustomStopProps {
+    cityName: string
+    count: number
+    latitude: string
+    longitude: string
+    stopName: string
+}
+
 const BusStop = (props: Props) => {
     const [stops, setStops] = useState<StopProps["results"]>([])
+    const [customStops, setCustomStops] = useState<CustomStopProps[]>([])
     const [showModal, setShowModal] = useState(false)
     const { switchLang, lang } = useLanguage(
         (state) => ({
@@ -58,10 +67,23 @@ const BusStop = (props: Props) => {
     const getNearByStop = async () => {
         try {
             const stops = await axios.get<StopProps>(
-                `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.latitude},${coords.longitude}&radius=6000000&type=bus_station&language=${lang}&key=AIzaSyCg7kGi7TcjlfmIyq_UKxoejX2Lb-M380U`
+                `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.latitude},${coords.longitude}&radius=6000000000&type=bus_station&language=${lang}&key=AIzaSyCg7kGi7TcjlfmIyq_UKxoejX2Lb-M380U`
             )
-            console.log(stops.data)
+            console.log({ nearby: stops.data })
             setStops(stops.data.results)
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const getCustomBusStops = async () => {
+        try {
+            const { data } = await axios.post<CustomStopProps[]>(
+                `${SERVER_ENDPOINT}/getstopdata`,
+                { cityName: city }
+            )
+            console.log(data)
+            setCustomStops(data)
         } catch (e) {
             console.log(e)
         }
@@ -82,6 +104,7 @@ const BusStop = (props: Props) => {
 
     useEffect(() => {
         getNearByStop()
+        getCustomBusStops()
     }, [lang])
 
     const { t, i18n } = useTranslation()
@@ -89,7 +112,7 @@ const BusStop = (props: Props) => {
     return (
         <Background>
             <FlatList
-                style={{ height: "100%" }}
+                // style={{ height: "0%" }}
                 data={stops}
                 renderItem={({ item }) => (
                     <StopCard
@@ -110,6 +133,20 @@ const BusStop = (props: Props) => {
                         {t("Nearby Bus Stop")}
                     </Text>
                 }
+            />
+            {/* Custom Stops */}
+            <FlatList
+                style={{ height: "90%" }}
+                data={customStops}
+                renderItem={({ item }) => (
+                    <StopCard
+                        stop={item.stopName}
+                        coords={{
+                            lat: Number(item.latitude),
+                            lng: Number(item.longitude),
+                        }}
+                    />
+                )}
             />
             {/*    Add Btn  */}
             <TouchableOpacity
