@@ -117,6 +117,10 @@ app.post("/busdetails", (req, res) => {
                 result.forEach((data) => {
                     details.stops.push(data.arrivalPlace)
                 })
+                details.busTimes = []
+                result.forEach((data) => {
+                    details.busTimes.push(data.arrivalTime)
+                })
                 const data = []
                 data.push(result)
                 res.status(200).send(details)
@@ -179,7 +183,7 @@ app.post("/getstopdata", (req, res) => {
     //console.log(cityName);
     try {
         db.query(
-            "select * from busStop where cityName=?",
+            "select * from busStop where cityName=? AND count>10",
             [cityName],
             (err, row) => {
                 res.status(200).send(row)
