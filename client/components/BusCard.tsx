@@ -92,7 +92,10 @@ const BusCard = ({ item, index, len }: Props) => {
                         style={{ fontFamily: "InterSemiBold" }}
                         className=" pl-2"
                     >
-                        {item?.arrivalTime1}
+                        {`${item?.arrivalTime.slice(
+                            0,
+                            5
+                        )} - ${item?.arrivalTime1.slice(0, 5)}`}
                     </Text>
                 </View>
             )}

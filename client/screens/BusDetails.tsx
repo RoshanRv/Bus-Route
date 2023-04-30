@@ -15,6 +15,7 @@ type BusInfoProps = {
     busNo: string
     type: string
     stops: string[]
+    busTimes: string[]
     price: number
 }
 
@@ -30,7 +31,7 @@ const BusDetails = () => {
             const details = await axios.post(`${SERVER_ENDPOINT}/busdetails`, {
                 busNo: busNumber,
             })
-            console.log(details.data)
+            console.log({ details: details.data })
             setBusInfo(details.data)
         } catch (e) {
             console.log(e)
@@ -181,7 +182,9 @@ const BusDetails = () => {
                                             }}
                                             className="pl-3 text-base capitalize whitespace-pre-wrap "
                                         >
-                                            {t(item)}
+                                            {`${t(item)} - ${
+                                                busInfo.busTimes[index]
+                                            }`}
                                         </Text>
                                     </View>
                                 )}
