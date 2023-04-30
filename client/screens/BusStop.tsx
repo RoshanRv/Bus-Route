@@ -58,6 +58,8 @@ const BusStop = (props: Props) => {
         city,
     }))
 
+    console.log({ city })
+
     // Modal
     const [modalLat, setModalLat] = useState(coords.latitude?.toString())
     const [modalLng, setModalLng] = useState(coords.longitude?.toString())
@@ -151,56 +153,57 @@ const BusStop = (props: Props) => {
             {/*    Add Btn  */}
             <TouchableOpacity
                 onPress={() => setShowModal((e) => !e)}
-                className="p-3 bg-emerald-400 shadow-md shadow-black w-12 rounded-lg flex flex-row justify-center absolute right-6 bottom-10"
+                className={`p-3 ${
+                    showModal ? "rotate-45" : "rotate-0"
+                } bg-emerald-400 shadow-md shadow-black w-12 transition-all rounded-lg flex flex-row justify-center absolute right-6 bottom-10`}
             >
                 <Ionicons
                     name="add-outline"
                     size={24}
                     color="white"
-                    className="w-max bg-red-500"
+                    className="w-max bg-red-500 "
                 />
             </TouchableOpacity>
 
             {showModal && (
-                <View className="bg-white rounded-md shadow-2xl shadow-black p-3 px-5 absolute top-[27%] left-6  -translate-x-1/2 w-[90%]">
+                <View className="bg-white rounded-md shadow-2xl shadow-black p-3 px-5 absolute top-[49%] left-6  -translate-x-1/2 w-[90%]">
                     <Text
                         className="text-xl text-center"
                         style={{ fontFamily: "RalewayBold" }}
                     >
-                        {t("Add New Stop")}
+                        {t("Add Current Stop")}
                     </Text>
                     {/*   Inputs   */}
                     <View className="mt-4">
                         {/* Lat */}
-                        <View>
-                            {/* Lat Label */}
+                        {/* <View>
                             <Text
                                 className="text-sm text-gray-400"
                                 style={{ fontFamily: "RalewayRegular" }}
                             >
                                 {t("Latitude")}
                             </Text>
-                            {/* Lat Input */}
                             <TextInput
+                                inputMode="decimal"
+                                editable={false}
                                 className="p-1 border-b-2 border-emerald-800"
                                 style={{ fontFamily: "RalewayRegular" }}
                                 onChangeText={(e) => {
                                     setModalLat(e)
                                 }}
-                                value={modalLat}
+                                 value={modalLat}
                             ></TextInput>
-                        </View>
+                        </View> */}
                         {/* lon */}
-                        <View className="mt-4">
-                            {/* lon Label */}
+                        {/* <View className="mt-4">
                             <Text
                                 className="text-sm text-gray-400"
                                 style={{ fontFamily: "RalewayRegular" }}
                             >
                                 {t("Longitude")}
                             </Text>
-                            {/* lon Input */}
                             <TextInput
+                                inputMode="decimal"
                                 className="p-1 border-b-2 border-emerald-800"
                                 style={{ fontFamily: "RalewayRegular" }}
                                 onChangeText={(e) => {
@@ -208,7 +211,7 @@ const BusStop = (props: Props) => {
                                 }}
                                 value={modalLng}
                             ></TextInput>
-                        </View>
+                        </View> */}
                         {/* stop */}
                         <View className="mt-4">
                             {/* stop Label */}
@@ -229,25 +232,23 @@ const BusStop = (props: Props) => {
                             ></TextInput>
                         </View>
                         {/* city */}
-                        <View className="mt-4">
-                            {/* city Label */}
-                            <Text
-                                className="text-sm text-gray-400"
-                                style={{ fontFamily: "RalewayRegular" }}
-                            >
-                                {t("City Name")}
-                            </Text>
-                            {/* city Input */}
-                            <TextInput
-                                className="p-1 border-b-2 border-emerald-800"
-                                style={{ fontFamily: "RalewayRegular" }}
-                                onChangeText={(e) => {
-                                    setModalCity(e)
-                                }}
-                                // @ts-ignore
-                                value={t(modalCity || "")}
-                            ></TextInput>
-                        </View>
+                        {/* <View className="mt-4">
+                                <Text
+                                    className="text-sm text-gray-400"
+                                    style={{ fontFamily: "RalewayRegular" }}
+                                >
+                                    {t("City Name")}
+                                </Text>
+                                <TextInput
+                                    className="p-1 border-b-2 border-emerald-800"
+                                    style={{ fontFamily: "RalewayRegular" }}
+                                    onChangeText={(e) => {
+                                        setModalCity(e)
+                                    }}
+                                    // @ts-ignore
+                                    value={t(modalCity || "")}
+                                ></TextInput>
+                            </View> */}
                     </View>
                     <TouchableOpacity
                         onPress={() => {

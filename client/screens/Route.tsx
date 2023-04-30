@@ -74,7 +74,7 @@ const Routes = ({ navigation, route }: Props) => {
             })
 
             setBusRoutes(routes.data)
-            console.log(routes.data)
+            console.log({ routes: routes.data[0] })
         } catch (e) {
             console.log(e)
         } finally {
