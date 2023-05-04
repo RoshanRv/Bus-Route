@@ -69,7 +69,7 @@ const BusStop = (props: Props) => {
     const getNearByStop = async () => {
         try {
             const stops = await axios.get<StopProps>(
-                `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.latitude},${coords.longitude}&radius=6000000000&type=bus_station&language=${lang}&key=AIzaSyCg7kGi7TcjlfmIyq_UKxoejX2Lb-M380U`
+                `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${coords.latitude},${coords.longitude}&type=bus_station&language=${lang}&key=AIzaSyCg7kGi7TcjlfmIyq_UKxoejX2Lb-M380U`
             )
             console.log({ nearby: stops.data })
             setStops(stops.data.results)
@@ -84,7 +84,7 @@ const BusStop = (props: Props) => {
                 `${SERVER_ENDPOINT}/getstopdata`,
                 { cityName: city }
             )
-            console.log(data)
+            console.log({ custom: data })
             setCustomStops(data)
         } catch (e) {
             console.log(e)
@@ -105,8 +105,11 @@ const BusStop = (props: Props) => {
     }
 
     useEffect(() => {
-        getNearByStop()
         getCustomBusStops()
+    }, [])
+
+    useEffect(() => {
+        getNearByStop()
     }, [lang])
 
     const { t, i18n } = useTranslation()
