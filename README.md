@@ -12,6 +12,8 @@ The Bus Route app suggest local bus with additional details such as
 
 -   Estimated Arrival Time
 -   Ticket Fare
+-   Predicts Crowd Using Random Forest Algorithm
+-   Suggets Nearby Bus Stop
 -   Origin & Drop Bus Stop
 -   Origin, Drop & Interchange Stop if User has to switch b/w buses.
 -   Free For Women Bus
@@ -35,3 +37,9 @@ The app supports internationalization which means the language can be switched b
 -   Express JS
 -   Node JS
 -   MySQL
+
+### ML Backend
+
+-   Flask
+-   Sklearn
+-   Python
