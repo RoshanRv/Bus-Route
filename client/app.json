@@ -1,42 +1,42 @@
 {
-    "expo": {
-        "name": "bus-route",
-        "slug": "bus-route",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/logo.png",
-        "userInterfaceStyle": "light",
-        "splash": {
-            "image": "./assets/logo.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#b3ffcc"
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/logo.png",
-                "backgroundColor": "#b3ffcc"
-            },
-            "package": "com.roshanrv.busroute"
-        },
-        "web": {
-            "favicon": "./assets/favicon.png"
-        },
-        "extra": {
-            "eas": {
-                "projectId": "8eb2c2a8-b224-4069-982a-f9c7ed74d93d"
-            }
-        },
-        "plugins": [
-            [
-                "expo-location",
-                {
-                    "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
-                }
-            ]
-        ]
-    }
+  "expo": {
+    "name": "BusTrackr",
+    "slug": "bus-trackr",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFF"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo.png",
+        "backgroundColor": "#FFF"
+      },
+      "package": "com.roshanrv.busroute"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8eb2c2a8-b224-4069-982a-f9c7ed74d93d"
+      }
+    },
+    "plugins": [
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
+    ]
+  }
 }
